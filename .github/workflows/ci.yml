@@ -1,0 +1,49 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  testes:
+    name: testes (${{ matrix.so }}, node ${{ matrix.node }})
+    runs-on: ${{ matrix.so }}
+    strategy:
+      fail-fast: false
+      matrix:
+        so: [ubuntu-latest, windows-latest, macos-latest]
+        node: ['20', '22', '24']
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node }}
+      # O `shell: bash` nao e enfeite: no PowerShell do runner o glob
+      # `testes/*.test.js` chega ao node como texto literal e ele procura um
+      # arquivo com asterisco no nome.
+      - name: as regras e os numeros do README
+        shell: bash
+        run: node --test testes/nucleo.test.js testes/medidas.test.js
+      - name: a varredura literal e os poligonos grandes
+        shell: bash
+        run: node --test testes/pesados.test.js
+
+  medidas:
+    name: tabelas do README
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: o maior thrackle de cada poligono
+        run: node ferramentas/medidor.js maximo
+      - name: quantos conjuntos maximos existem
+        run: node ferramentas/medidor.js maximos
+      - name: as duas receitas contra o maximo
+        run: node ferramentas/medidor.js construcoes
+      - name: a poda contra a varredura literal
+        run: node ferramentas/medidor.js duelo
