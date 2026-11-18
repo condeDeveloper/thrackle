@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Thrackle convexo — cordas que se encontram todas</title>
+<meta name="description" content="Thrackles convexos varridos: o m&#225;ximo &#233; exatamente n em todos os pol&#237;gonos medidos, e o n&#250;mero de conjuntos m&#225;ximos segue 2^(n-1) menos n, forma lida na coluna medida e confirmada por previs&#227;o.">
+<link rel="stylesheet" href="css/estilo.css">
+</head>
+<body>
+
+<header>
+  <h1>Thrackle convexo</h1>
+  <p>Um <strong>thrackle</strong> é um desenho de grafo em que cada par de arestas se encontra exatamente uma vez — ou numa ponta compartilhada, ou num cruzamento. A conjectura de Conway, aberta desde os anos 1960, diz que um grafo com thrackle tem no máximo tantas arestas quanto vértices.</p>
+  <p>Desenho qualquer é coisa contínua e não se varre. Mas há um caso que se varre inteiro: os pontos em <strong>posição convexa</strong>, nos vértices de um polígono. Ali duas cordas se encontram exatamente quando compartilham uma ponta ou quando as pontas se intercalam na volta — sem coordenada, sem epsilon, sem caso degenerado.</p>
+</header>
+
+<main>
+
+<section>
+  <h2>Veja</h2>
+  <div class="painel">
+    <div class="linha" style="margin-bottom:16px">
+      <select id="pontos" aria-label="numero de pontos">
+        <option value="5">5 pontos</option>
+        <option value="6">6 pontos</option>
+        <option value="7">7 pontos</option>
+        <option value="8" selected>8 pontos</option>
+        <option value="9">9 pontos</option>
+        <option value="10">10 pontos</option>
+        <option value="11">11 pontos</option>
+        <option value="12">12 pontos</option>
+      </select>
+      <button id="maior" type="button">Maior conjunto</button>
+      <button id="estrela" type="button">A estrela</button>
+      <button id="diagonais" type="button">Diagonais longas</button>
+      <button id="contar" type="button">Contar todos os máximos</button>
+      <button id="proximo" type="button">Próximo</button>
+    </div>
+    <div id="desenho"></div>
+    <p id="texto"></p>
+  </div>
+</section>
+
+<section>
+  <h2>O que a varredura respondeu</h2>
+
+  <h3>O teto não é só respeitado: ele é atingido</h3>
+  <p>A conjectura de Conway dá um teto de <em>n</em> cordas. Varrido de 3 a 12 pontos, o máximo é <strong>exatamente n</strong> em todas as linhas — e isso vale tanto para polígono de lado ímpar quanto par.</p>
+
+  <h3>Mas as receitas conhecidas não alcançam no caso par</h3>
+  <p>Há duas construções fechadas. A <strong>estrela</strong> — todas as cordas que saem de um mesmo ponto — dá sempre <code>n−1</code>. As <strong>diagonais longas</strong> dão <code>n</code> quando <em>n</em> é ímpar, e só <code>n/2</code> quando é par, porque a receita produz cada corda duas vezes.</p>
+  <p>Resultado: nos cinco polígonos pares medidos (6, 8, 10, 12 e o 4), a melhor receita fica <strong>exatamente uma corda abaixo</strong> do máximo. O máximo existe, a busca acha, e nenhuma das duas fórmulas o produz.</p>
+
+  <h3>Quantos máximos existem: uma forma fechada lida na coluna</h3>
+  <p>Contando todos os conjuntos de tamanho máximo, a coluna sai 1, 4, 11, 26, 57, 120, 247, 502 para <em>n</em> de 3 a 10. As diferenças são <strong>3, 7, 15, 31, 63, 127, 255</strong> — potências de dois menos um.</p>
+  <p>Isso fecha em <code>2^(n−1) − n</code>. A forma foi escrita <em>antes</em> de medir n = 11, 12 e 13, e as três previsões bateram: <strong>1.013</strong>, <strong>2.036</strong> e <strong>4.083</strong>. Depois o n = 14 também: <strong>8.178</strong>.</p>
+  <p>Vale dizer com todas as letras: isto é uma <strong>conjectura minha</strong>, medida de 3 a 14. Não é teorema citado de lugar nenhum.</p>
+</section>
+
+<section>
+  <h2>Os três juízes</h2>
+  <p><strong>A varredura literal</strong> abre os <code>2^cordas</code> subconjuntos e testa cada um par a par, sem poda e sem cota. Vai até 7 pontos (2.097.152 subconjuntos) e concorda com a busca podada em tamanho <em>e</em> em contagem. No n = 7 a poda abre 540 nós contra os 2 milhões da literal: <strong>3.883×</strong>.</p>
+  <p><strong>O teto de Conway</strong> é uma afirmação de fora do programa, e a varredura tem de respeitá-la. Respeita nas dez linhas, e atinge.</p>
+  <p><strong>As duas construções</strong> dão cotas inferiores sem buscar nada — e o interessante é justamente onde elas ficam abaixo.</p>
+  <p>O juiz tem controle negativo: dadas duas cordas disjuntas, ele reprova. Juiz que aprova tudo não é juiz.</p>
+</section>
+
+<section>
+  <h2>Como rodar</h2>
+  <p>Node 20 ou mais novo. Sem dependência nenhuma.</p>
+  <pre><code>npm test
+npm run medir
+node ferramentas/medidor.js maximos</code></pre>
+  <p>O repositório está em <a href="https://github.com/condeDeveloper/thrackle">github.com/condeDeveloper/thrackle</a>.</p>
+</section>
+
+</main>
+
+<script type="module" src="js/app.js"></script>
+</body>
+</html>
