@@ -1,0 +1,13 @@
+{
+  "name": "thrackle",
+  "version": "1.0.0",
+  "description": "Thrackles convexos varridos: o maior conjunto de cordas de um poligono que se cruzam todas duas a duas, e quantos conjuntos maximos existem",
+  "type": "module",
+  "private": false,
+  "license": "MIT",
+  "engines": { "node": ">=20" },
+  "scripts": {
+    "test": "node --test testes/*.test.js",
+    "medir": "node ferramentas/medidor.js"
+  }
+}
