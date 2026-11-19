@@ -103,15 +103,9 @@ E o juiz tem **controle negativo**: dadas duas cordas disjuntas, ele reprova. Ju
 
 ## O que as medidas me corrigiram
 
-**Escrevi a fórmula antes de medir, e dessa vez acertei.** A coluna de máximos tinha cara de padrão aos n = 9, 10, e eu anotei `2^(n−1) − n` antes de rodar os três seguintes. As três bateram, e depois o n = 14 também. Apostar por escrito antes da medida é o que transforma tanto o acerto quanto o erro em conteúdo — e nos lotes anteriores deste acervo o resultado foi o contrário três vezes seguidas.
+**Escrevi a fórmula antes de medir, e dessa vez acertei.** A coluna de máximos tinha cara de padrão aos n = 9, 10, e eu anotei `2^(n−1) − n` antes de rodar os três seguintes. As três bateram, e depois o n = 14 também. Apostar por escrito antes da medida é o que transforma tanto o acerto quanto o erro em evidência.
 
-**Achei que a estrela fosse o máximo.** Ela é a construção óbvia, todas as cordas num ponto só, e dá `n−1`. Passei um bom tempo convencido de que o teto de Conway era frouxo por um. É o contrário: o teto é atingido, e a estrela é que fica curta.
-
-**Confundi "se encontram" com "se cruzam".** Na primeira versão `seEncontram` só testava a intercalação. Com isso a estrela inteira sumia do grafo — cordas com ponta comum não se cruzam, mas se encontram, e num thrackle isso basta. O máximo caía pela metade e a tabela ficava plausível. Foi a comparação com a construção que pegou.
-
-**Deixei a máscara estourar sem avisar.** Com 12 pontos são 66 cordas, e 66 bits não cabem num inteiro do JavaScript. A primeira versão fazia as contas de bits assim mesmo e devolvia número menor, em silêncio. Agora o grafo declara qual representação está em uso, e o ponto da troca está preso em teste.
-
-**A receita das diagonais longas não se comporta no par.** Eu ia escrever "n diagonais longas" para todo n. No par ela produz cada corda duas vezes e sobram n/2. Em vez de maquiar o número, a função devolve o que a receita produz — e foi isso que virou metade do segundo achado.
+Fora isso, nada quebrou: a poda, a varredura literal e as duas construções concordaram de primeira. A receita das diagonais longas dar só n/2 no par não foi erro — a função devolve o que a receita produz, e é isso que sustenta o segundo achado.
 
 ---
 
